@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <header>
+        <h2 class="logo">Travel</h2>
+       <ul>
+           <li><a href="#">Home</a></li>
+           <li><a href="#">Collections</a></li>
+           <li><a href="#">Blog</a></li>
+           <li><a href="#">Contact</a></li>
+           <li><a href="#">About</a></li>
+       </ul>
+       <div class="search">
+           <input type='text' name='search' id='sh'
+           required placeholder="Enter your search">
+           <i class="fa fa-search" aria-hidden="true"></i>
+       </div>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="slides">
+                <img src='/bali-beach.jpeg' alt=''>
+                <div class="content">
+                    <h2>Bali</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi velit provident pariatur optio dolore placeat nam voluptas iusto accusamus a.
+                    </p>
+                    <a href='#'>Explore &#8594</a>
+                </div>
+            </div>
+            <div class="slides">
+                <img src='/mathew-schwartz-s87bBFZviAU-unsplash.jpg' alt=''>
+                <div class="content">
+                    <h2>Roma</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi velit provident pariatur optio dolore placeat nam voluptas iusto accusamus a.
+                    </p>
+                    <a href='#'>Explore &#8594</a>
+                </div>
+            </div>
+            <div class="slides">
+                <img src='/ruslan-bardash-8MhejqEghLk-unsplash.jpg' alt=''>
+                <div class="content">
+                    <h2>Vietnam</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi velit provident pariatur optio dolore placeat nam voluptas iusto accusamus a.
+                    </p>
+                    <a href='#'>Explore &#8594</a>
+                </div>
+            </div>
+            <div class="slides">
+                <img src='/thailand-rock.jpg' alt=''>
+                <div class="content">
+                    <h2>Thailand</h2>
+                    <p>Thailand is a Southeast Asian country. It's known for tropical beaches, opulent royal palaces, ancient ruins and ornate temples displaying figures of Buddha.
+                    </p>
+                    <a href='#'>Explore &#8594</a>
+                </div>
+            </div>
+        </div>
+        <!--- Slides small ------>
+        <div class="slides-small">
+            <div class='thumb'>
+                <p>Beach, Bali</p>
+                <img src='/beach-bali.jpg' alt=''>
+                <i class="fa fa-bookmark"></i>
+            </div>
+            <div class='thumb'>
+                <p>Trevi Fontain, Roma</p>
+                <img src='/trevi-fontain.jpg' alt=''>
+                <i class="fa fa-bookmark"></i>
+            </div>
+            <div class='thumb'>
+                <p>People, Vietnam</p>
+                <img src='/tran-phu-QAi6RoDm_mI-unsplash.jpg' alt=''>
+                <i class="fa fa-bookmark"></i>
+            </div>
+            <div class='thumb'>
+                <p>Elephants, Thailand</p>
+                <img src='/elephant-thailand.jpg' alt=''>
+                <i class="fa fa-bookmark"></i>
+            </div>
+        </div>
+
+        <!-- Next and Previous buttons-->
+        <a href='#' class="prev">&#171</a>
+        <a href='#' class="next">&#187</a>
+
+        <!-- Dot/ circles Nav -->
+        <div class="nav">
+            <span class="dot">1</span>
+            <span class="dot">2</span>
+            <span class="dot">3</span>
+            <span class="dot">4</span>
+        </div>
+    </section>
+
+    <script>
+        const next = document.querySelector('.next');
+        const prev = document.querySelector('.prev');
+        const dots = document.querySelectorAll('.dot');
+        const slides = document.querySelectorAll('.slides');
+        let index = 1;
+        function show(n){
+            if(n>slides.length){index=1}
+            if(n<1){index= slides.length};
+            let i;
+            for(i=0; i<slides.length; i++){
+                slides[i].style.transform = `translateX(0)`;
+                slides[i].className = slides[i].className.replace
+                ('fade','');
+            }
+            slides[index-1].style.transform = `translateX(-${
+                (index-1)*100}%)`;
+            slides[index-1].className += ' fade';
+            //dots
+            for(i=0; i<dots.length;i++){
+                dots[i].className = dots[i].className.replace('active','')
+            }
+            dots[index-1].className += ' active'
+        }
+        next.addEventListener('click', ()=>{
+            show(index += 1);
+            nextSlide()
+            setTimeout(()=>{
+                thumb[0].classList.add('effect');
+            },200)
+           
+        })
+        prev.addEventListener('click',()=>{
+            show(index -= 1)
+            thumb[0].classList.remove('effect');
+             prevSlide() 
+        })
+        //part 3
+        const thumb = document.querySelectorAll('.thumb');
+        let thumbArray= [];
+        for(let i=0;i<thumb.length;i++){
+            thumbArray[i] = thumb[i].innerHTML
+        }
+        function nextSlide(){
+            let change = thumbArray.shift();
+            thumbArray.push(change);
+            for(let i=0; i<thumb.length; i++){
+                thumb[i].innerHTML = thumbArray[i]
+            }
+            thumb[0].classList.remove('effect');
+        }
+        function prevSlide(){
+            let change = thumbArray.pop();
+            thumbArray.unshift(change);
+            for(let i=0; i<thumb.length; i++){
+                thumb[i].innerHTML = thumbArray[i]
+            }
+            setTimeout(()=>{
+                thumb[0].classList.add('effect');
+            },200)
+        }
+    </script>
+</body>
+</html>
